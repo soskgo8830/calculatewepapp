@@ -113,8 +113,10 @@ function StepThree({ step, setStep, people, expenses }) {
               </p>
               <p>
                 정산 금액:{' '}
-                {calculatedExpense.amount /
-                  calculatedExpense.selectedPeople.length}
+                {(
+                  calculatedExpense.amount /
+                  calculatedExpense.selectedPeople.length
+                ).toFixed(0)}
               </p>
             </div>
           ))}
