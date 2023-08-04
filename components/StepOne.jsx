@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { IoIosAddCircleOutline } from 'react-icons/io';
@@ -12,7 +10,7 @@ function StepOne({ step, setStep, setPeople }) {
   ]);
 
   const addPerson = () => {
-    const newPerson = { id: people.length + 1, name: '', isRequired: true };
+    const newPerson = { id: new Date().getTime(), name: '', isRequired: true };
     setPeopleState([...people, newPerson]);
   };
 
@@ -26,6 +24,11 @@ function StepOne({ step, setStep, setPeople }) {
   };
 
   const removePerson = (id) => {
+    if (people.length === 1) {
+      alert('최소한 1명 이상의 정산인원이 필요합니다.');
+      return;
+    }
+
     const updatedPeople = people.filter((person) => person.id !== id);
     setPeopleState(updatedPeople);
   };
@@ -40,7 +43,7 @@ function StepOne({ step, setStep, setPeople }) {
     );
 
     if (hasEmptyRequiredFields) {
-      // 유효성 검사 실패 처리
+      alert('모두 입력해주세요.');
     } else {
       setPeople(people);
       setStep(2);
@@ -58,7 +61,7 @@ function StepOne({ step, setStep, setPeople }) {
           <div key={person.id} className='flex mb-2'>
             <input
               type='text'
-              placeholder='정산인원을 입력해주세요.'
+              placeholder='정산 인원을 입력해주세요.'
               className={`border rounded p-1 w-full text-black ${
                 person.isRequired && person.name === '' ? 'border-red-500' : ''
               }`}
@@ -68,6 +71,7 @@ function StepOne({ step, setStep, setPeople }) {
             <button
               className='text-red-500 ml-2'
               onClick={() => removePerson(person.id)}
+              disabled={people.length === 1}
             >
               <BsTrash size={30} />
             </button>

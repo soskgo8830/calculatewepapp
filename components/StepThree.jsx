@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 function StepThree({ step, setStep, people, expenses }) {
   const [selectedPeopleMap, setSelectedPeopleMap] = useState({});
   const [calculatedExpenses, setCalculatedExpenses] = useState([]);
   const [showCalculated, setShowCalculated] = useState(false);
+  const resultRef = useRef(null);
 
   const handlePersonToggle = (expenseId, personId) => {
     setSelectedPeopleMap((prevSelectedPeople) => {
@@ -32,6 +33,15 @@ function StepThree({ step, setStep, people, expenses }) {
   };
 
   const handleCalculate = () => {
+    const selectedPeopleExist = Object.values(selectedPeopleMap).some(
+      (selectedPeople) => selectedPeople.length > 0
+    );
+
+    if (!selectedPeopleExist) {
+      alert('선택된 인원이 없습니다.');
+      return;
+    }
+
     const newCalculatedExpenses = expenses.map((expense) => {
       const selectedPeople = selectedPeopleMap[expense.id] || [];
 
@@ -61,6 +71,20 @@ function StepThree({ step, setStep, people, expenses }) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
+  const handleCopyToClipboard = () => {
+    if (resultRef.current) {
+      const range = document.createRange();
+      range.selectNode(resultRef.current);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+
+      document.execCommand('copy');
+      window.getSelection().removeRange(range);
+
+      alert('정산 내역이 복사되었습니다.');
+    }
+  };
+
   return (
     <div className='p-4'>
       {expenses.map((expense) => (
@@ -81,7 +105,7 @@ function StepThree({ step, setStep, people, expenses }) {
                   )}
                   onChange={() => handlePersonToggle(expense.id, person.id)}
                 />
-                <span>{person.name}</span>
+                <span className='text-sm'>{person.name}</span>
               </label>
             ))}
           </div>
@@ -115,38 +139,56 @@ function StepThree({ step, setStep, people, expenses }) {
 
       {showCalculated && (
         <div className='mt-8 border p-4 mb-4 rounded'>
-          {calculatedExpenses.map((calculatedExpense) => (
-            <div key={calculatedExpense.id} className='mb-4'>
-              <p>{calculatedExpense.description}</p>
-              <p>총 금액: {addCommasToNumber(calculatedExpense.amount)}</p>
-              <p>
-                선택된 인원:{' '}
-                {calculatedExpense.selectedPeople
-                  .map(
-                    (personId) =>
-                      people.find((person) => person.id === personId).name
-                  )
-                  .join(', ')}
-              </p>
-              <p>
-                개인 정산 금액:{' '}
-                {addCommasToNumber(calculatedExpense.totalPerPerson.toFixed(0))}
-              </p>
-            </div>
-          ))}
+          <div ref={resultRef}>
+            <h2 className='text-xl font-semibold mb-4 mt-4'>정산 내역</h2>
+            {calculatedExpenses.map((calculatedExpense) => (
+              <div key={calculatedExpense.id} className='mb-4'>
+                <p>- ( {calculatedExpense.description} )</p>
+                <p>
+                  💰 총 금액: {addCommasToNumber(calculatedExpense.amount)}원
+                </p>
+                <p>
+                  참여인원:{' '}
+                  {calculatedExpense.selectedPeople
+                    .map(
+                      (personId) =>
+                        people.find((person) => person.id === personId).name
+                    )
+                    .join(', ')}
+                </p>
+                <p>
+                  개인 정산 금액:{' '}
+                  {addCommasToNumber(
+                    calculatedExpense.totalPerPerson.toFixed(0)
+                  )}
+                  원
+                </p>
+                <br />
+              </div>
+            ))}
 
-          <hr />
-          <h2 className='text-xl font-semibold mb-4 mt-4'>정산 내역</h2>
-          {people.map((person) => (
-            <div key={person.id} className='mb-2'>
-              <p>
-                {person.name} :{' '}
-                {addCommasToNumber(
-                  calculateTotalExpensesForPerson(person.id).toFixed(0)
-                )}
-              </p>
-            </div>
-          ))}
+            <hr />
+            <h2 className='text-xl font-semibold mb-4 mt-4'>정산 내역 결과</h2>
+            {people.map((person) => (
+              <div key={person.id} className='mb-2'>
+                <p>
+                  💸 {person.name} :{' '}
+                  {addCommasToNumber(
+                    calculateTotalExpensesForPerson(person.id).toFixed(0)
+                  )}
+                  원
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className='flex justify-center mt-5'>
+            <button
+              className='text-base focus:outline-none px-4 py-2 rounded font-bold bg-gray-100 text-gray-700 border border-gray-600'
+              onClick={handleCopyToClipboard}
+            >
+              정산내역 복사
+            </button>
+          </div>
         </div>
       )}
     </div>

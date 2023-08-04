@@ -9,6 +9,11 @@ function StepTwo({ step, setStep, expenses, setExpenses }) {
   };
 
   const removeExpense = (id) => {
+    if (expenses.length === 1) {
+      alert('최소한 1개의 정산내용이 필요합니다.');
+      return;
+    }
+
     const updatedExpenses = expenses.filter((expense) => expense.id !== id);
     setExpenses(updatedExpenses);
   };
@@ -35,7 +40,7 @@ function StepTwo({ step, setStep, expenses, setExpenses }) {
     const isValid = expenses.every(validateExpense);
 
     if (!isValid) {
-      // 유효성 검사 실패 처리
+      alert('모두 입력해주세요.');
     } else {
       setExpenses(expenses);
       setStep(3);
@@ -43,7 +48,7 @@ function StepTwo({ step, setStep, expenses, setExpenses }) {
   };
 
   const initHandler = () => {
-    setExpenses([{ id: 1, description: '', amount: '', isRequired: true }]);
+    setExpenses([{ id: 1, description: '', amount: '' }]);
   };
 
   return (
@@ -59,7 +64,7 @@ function StepTwo({ step, setStep, expenses, setExpenses }) {
             <div className='mb-2'>
               <input
                 type='text'
-                placeholder='정산내용을 입력해주세요.'
+                placeholder='정산 내용을 입력해주세요.'
                 className='w-full p-1 text-black'
                 value={expense.description}
                 onChange={(e) =>
@@ -80,6 +85,7 @@ function StepTwo({ step, setStep, expenses, setExpenses }) {
               <button
                 className='text-red-500 '
                 onClick={() => removeExpense(expense.id)}
+                disabled={expenses.length === 1}
               >
                 <BsTrash size={30} />
               </button>
