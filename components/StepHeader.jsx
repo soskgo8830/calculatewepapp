@@ -10,11 +10,11 @@ function StepHeader({ step }) {
     if (step === 1) {
       return (
         <div className='flex items-center'>
-          <div className='flex items-center text-green-600 relative'>
-            <div className='rounded-full transition duration-500 ease-in-out border-2 border-green-600 p-2'>
+          <div className='flex items-center text-blue-600 relative'>
+            <div className='rounded-full transition duration-500 ease-in-out border-2 border-blue-600 p-2'>
               <BsPersonAdd size={30}></BsPersonAdd>
             </div>
-            <div className='absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-green-600'>
+            <div className='absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-blue-600'>
               인원추가
             </div>
           </div>
@@ -41,20 +41,20 @@ function StepHeader({ step }) {
     } else if (step === 2) {
       return (
         <div className='flex items-center'>
-          <div className='flex items-center text-green-600 relative'>
-            <div className='rounded-full transition duration-500 ease-in-out border-2 border-green-600 p-2'>
+          <div className='flex items-center text-blue-600 relative'>
+            <div className='rounded-full transition duration-500 ease-in-out border-2 border-blue-600 p-2'>
               <BsPersonAdd size={30}></BsPersonAdd>
             </div>
-            <div className='absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-green-600'>
+            <div className='absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-blue-600'>
               인원추가
             </div>
           </div>
-          <div className='flex-auto border-t-2 transition duration-500 ease-in-out border-green-600'></div>
-          <div className='flex items-center text-green-600 relative'>
-            <div className='rounded-full transition duration-500 ease-in-out border-2 border-green-600 p-2'>
+          <div className='flex-auto border-t-2 transition duration-500 ease-in-out border-blue-600'></div>
+          <div className='flex items-center text-blue-600 relative'>
+            <div className='rounded-full transition duration-500 ease-in-out border-2 border-blue-600 p-2'>
               <MdAddCard size={30}></MdAddCard>
             </div>
-            <div className='absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-green-600'>
+            <div className='absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-blue-600'>
               내역추가
             </div>
           </div>
@@ -72,29 +72,29 @@ function StepHeader({ step }) {
     } else {
       return (
         <div className='flex items-center'>
-          <div className='flex items-center text-green-600 relative'>
-            <div className='rounded-full transition duration-500 ease-in-out border-2 border-green-600 p-2'>
+          <div className='flex items-center text-blue-600 relative'>
+            <div className='rounded-full transition duration-500 ease-in-out border-2 border-blue-600 p-2'>
               <BsPersonAdd size={30}></BsPersonAdd>
             </div>
-            <div className='absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-green-600'>
+            <div className='absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-blue-600'>
               인원추가
             </div>
           </div>
-          <div className='flex-auto border-t-2 transition duration-500 ease-in-out border-green-600'></div>
-          <div className='flex items-center text-green-600 relative'>
-            <div className='rounded-full transition duration-500 ease-in-out border-2 border-green-600 p-2'>
+          <div className='flex-auto border-t-2 transition duration-500 ease-in-out border-blue-600'></div>
+          <div className='flex items-center text-blue-600 relative'>
+            <div className='rounded-full transition duration-500 ease-in-out border-2 border-blue-600 p-2'>
               <MdAddCard size={30}></MdAddCard>
             </div>
-            <div className='absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-green-600'>
+            <div className='absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-blue-600'>
               내역추가
             </div>
           </div>
-          <div className='flex-auto border-t-2 transition duration-500 ease-in-out border-green-600'></div>
-          <div className='flex items-center text-green-600 relative'>
-            <div className='rounded-full transition duration-500 ease-in-out border-2 border-green-600 p-2'>
+          <div className='flex-auto border-t-2 transition duration-500 ease-in-out border-blue-600'></div>
+          <div className='flex items-center text-blue-600 relative'>
+            <div className='rounded-full transition duration-500 ease-in-out border-2 border-blue-600 p-2'>
               <AiOutlineCalculator size={30}></AiOutlineCalculator>
             </div>
-            <div className='absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-green-600'>
+            <div className='absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-blue-600'>
               정산
             </div>
           </div>

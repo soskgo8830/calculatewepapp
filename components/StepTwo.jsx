@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { BsTrash } from 'react-icons/bs';
+import { GrPrevious, GrNext, GrPowerReset } from 'react-icons/gr';
 
 function StepTwo({ step, setStep, expenses, setExpenses }) {
   const addExpense = () => {
@@ -52,20 +53,22 @@ function StepTwo({ step, setStep, expenses, setExpenses }) {
   };
 
   return (
-    <div>
-      <div className='m-4'>
+    <div className='p-4'>
+      <div className=''>
         {expenses.map((expense) => (
           <div
             key={expense.id}
-            className={`border p-4 mb-4 rounded ${
-              !validateExpense(expense) ? 'border-red-500' : 'border'
+            className={`bg-white p-6 border-2 rounded-lg shadow-md text-center mb-4 ${
+              !validateExpense(expense)
+                ? 'border-red-500/50'
+                : 'border-gray-300/50'
             }`}
           >
             <div className='mb-2'>
               <input
                 type='text'
                 placeholder='정산 내용을 입력해주세요.'
-                className='w-full p-1 text-black'
+                className='border-2 rounded p-2 w-full text-black h-12'
                 value={expense.description}
                 onChange={(e) =>
                   handleDescriptionChange(expense.id, e.target.value)
@@ -76,14 +79,14 @@ function StepTwo({ step, setStep, expenses, setExpenses }) {
               <input
                 type='number'
                 placeholder='금액을 입력해주세요.'
-                className='w-full p-1 text-black'
+                className='border-2 rounded p-2 w-full text-black h-12'
                 value={expense.amount}
                 onChange={(e) => handleAmountChange(expense.id, e.target.value)}
               />
             </div>
             <div className='flex justify-end'>
               <button
-                className='text-red-500 '
+                className='border-2 border-red-500/50 bg-red-200 hover:bg-red-300 font-semibold py-2 px-4 rounded'
                 onClick={() => removeExpense(expense.id)}
                 disabled={expenses.length === 1}
               >
@@ -95,33 +98,33 @@ function StepTwo({ step, setStep, expenses, setExpenses }) {
       </div>
       <div className='text-center'>
         <button
-          className='bg-green-500 text-white font-bold py-2 px-4 rounded'
+          className='border-2 border-gray-500/50 bg-gray-200 hover:bg-gray-300 font-semibold py-2 px-4 rounded m-3'
           onClick={addExpense}
         >
-          <IoIosAddCircleOutline size={22}></IoIosAddCircleOutline>
+          <IoIosAddCircleOutline size={30}></IoIosAddCircleOutline>
         </button>
       </div>
 
-      <div className='mt-8 p-4'>
+      <div className='mt-8'>
         <div className='flex p-2 mt-4'>
           <button
-            className='text-base focus:outline-none flex justify-center px-4 py-2 rounded font-bold bg-gray-100 text-gray-700 border border-gray-600'
+            className='border-2 border-gray-500/50 bg-gray-200 hover:bg-gray-300 font-semibold py-2 px-4 rounded m-3'
             onClick={() => setStep(1)}
           >
-            이전
+            <GrPrevious size={22}></GrPrevious>
           </button>
           <div className='flex-auto flex flex-row-reverse'>
             <button
-              className='text-base focus:outline-none flex justify-center px-4 py-2 rounded font-bold bg-gray-100 text-gray-700 border border-gray-600 ml-3'
+              className='border-2 border-gray-500/50 bg-gray-200 hover:bg-gray-300 font-semibold py-2 px-4 rounded m-3'
               onClick={handleNextClick}
             >
-              다음
+              <GrNext size={22}></GrNext>
             </button>
             <button
-              className='text-base focus:outline-none flex justify-center px-4 py-2 rounded font-bold bg-gray-100 text-gray-700 border border-gray-600'
+              className='border-2 border-gray-500/50 bg-gray-200 hover:bg-gray-300 font-semibold py-2 px-4 rounded m-3'
               onClick={initHandler}
             >
-              초기화
+              <GrPowerReset size={22}></GrPowerReset>
             </button>
           </div>
         </div>

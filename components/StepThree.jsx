@@ -1,10 +1,13 @@
 import React, { useState, useRef } from 'react';
+import { GrPrevious, GrNext, GrPowerReset } from 'react-icons/gr';
+import { AiOutlineCalculator } from 'react-icons/ai';
 
 function StepThree({ step, setStep, people, expenses }) {
   const [selectedPeopleMap, setSelectedPeopleMap] = useState({});
   const [calculatedExpenses, setCalculatedExpenses] = useState([]);
   const [showCalculated, setShowCalculated] = useState(false);
   const resultRef = useRef(null);
+  const [accountNumber, setAccountNumber] = useState('');
 
   const handlePersonToggle = (expenseId, personId) => {
     setSelectedPeopleMap((prevSelectedPeople) => {
@@ -87,8 +90,22 @@ function StepThree({ step, setStep, people, expenses }) {
 
   return (
     <div className='p-4'>
+      <div className='mb-3'>
+        <input
+          type='text'
+          placeholder='계좌번호를 입력해주세요.'
+          className={
+            'border-2 rounded p-2 w-full text-black h-12 border-gray-300/50'
+          }
+          value={accountNumber}
+          onChange={(e) => setAccountNumber(e.target.value)}
+        />
+      </div>
       {expenses.map((expense) => (
-        <div key={expense.id} className='border p-4 mb-4 rounded'>
+        <div
+          key={expense.id}
+          className='bg-white p-6 border-2 border-gray-300/50 rounded-lg shadow-md mb-4'
+        >
           <h3 className='text-lg font-semibold'>
             정산 내용: {expense.description}
           </h3>
@@ -96,10 +113,11 @@ function StepThree({ step, setStep, people, expenses }) {
             {people.map((person) => (
               <label
                 key={person.id}
-                className='flex items-center space-x-2 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/6'
+                className='mb-3 flex items-center space-x-2 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/6'
               >
                 <input
                   type='checkbox'
+                  className='h-6 w-6'
                   checked={(selectedPeopleMap[expense.id] || []).includes(
                     person.id
                   )}
@@ -111,34 +129,32 @@ function StepThree({ step, setStep, people, expenses }) {
           </div>
         </div>
       ))}
-
-      <div className='mt-8 p-4'>
+      <div className='mt-8'>
         <div className='flex p-2 mt-4'>
           <button
-            className='text-base focus:outline-none flex justify-center px-4 py-2 rounded font-bold bg-gray-100 text-gray-700 border border-gray-600'
+            className='border-2 border-gray-500/50 bg-gray-200 hover:bg-gray-300 font-semibold py-2 px-4 rounded m-3'
             onClick={() => setStep(2)}
           >
-            이전
+            <GrPrevious size={22}></GrPrevious>
           </button>
           <div className='flex-auto flex flex-row-reverse'>
             <button
-              className='text-base focus:outline-none flex justify-center px-4 py-2 rounded font-bold bg-gray-100 text-gray-700 border border-gray-600 ml-3'
+              className='border-2 border-gray-500/50 bg-gray-200 hover:bg-gray-300 font-semibold py-2 px-4 rounded m-3'
               onClick={handleCalculate}
             >
-              정산하기
+              <AiOutlineCalculator size={22}></AiOutlineCalculator>
             </button>
             <button
-              className='text-base focus:outline-none flex justify-center px-4 py-2 rounded font-bold bg-gray-100 text-gray-700 border border-gray-600'
+              className='border-2 border-gray-500/50 bg-gray-200 hover:bg-gray-300 font-semibold py-2 px-4 rounded m-3'
               onClick={handleReset}
             >
-              초기화
+              <GrPowerReset size={22}></GrPowerReset>
             </button>
           </div>
         </div>
       </div>
-
       {showCalculated && (
-        <div className='mt-8 border p-4 mb-4 rounded'>
+        <div className='mt-8 border-2 border-gray-300/50 bg-white p-6 rounded-lg shadow-md'>
           <div ref={resultRef}>
             <h2 className='text-xl font-semibold mb-4 mt-4'>정산 내역</h2>
             {calculatedExpenses.map((calculatedExpense) => (
@@ -180,10 +196,11 @@ function StepThree({ step, setStep, people, expenses }) {
                 </p>
               </div>
             ))}
+            <div>🏧 계좌번호 : {accountNumber}</div>
           </div>
           <div className='flex justify-center mt-5'>
             <button
-              className='text-base focus:outline-none px-4 py-2 rounded font-bold bg-gray-100 text-gray-700 border border-gray-600'
+              className='border-2 border-gray-500/50 bg-gray-200 hover:bg-gray-300 font-semibold py-2 px-4 rounded m-3'
               onClick={handleCopyToClipboard}
             >
               정산내역 복사
