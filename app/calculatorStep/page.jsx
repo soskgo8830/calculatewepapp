@@ -1,13 +1,11 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 'use client';
 import React, { useState } from 'react';
-
 import StepOne from '@/components/StepOne';
 import StepTwo from '@/components/StepTwo';
 import StepThree from '@/components/StepThree';
 import StepHeader from '@/components/StepHeader';
 
-function calculatorStep() {
+function CalculatorStep() {
   const [step, setStep] = useState(1);
   const [people, setPeople] = useState([{ id: 1, name: '', isRequired: true }]);
   const [expenses, setExpenses] = useState([
@@ -36,13 +34,26 @@ function calculatorStep() {
   };
 
   return (
-    <div>
-      <StepHeader step={step}></StepHeader>
-      {step === 1 && <StepOne {...stepProps} />}
-      {step === 2 && <StepTwo {...stepTwoProps} />}
-      {step === 3 && <StepThree {...stepThreeProps} />}
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+      }}
+      className='bg-gray-100'
+    >
+      <div
+        style={{ maxWidth: '700px', width: '100%' }}
+        className='bg-white p-6 rounded-lg shadow-md m-4'
+      >
+        <StepHeader step={step} />
+        {step === 1 && <StepOne {...stepProps} />}
+        {step === 2 && <StepTwo {...stepTwoProps} />}
+        {step === 3 && <StepThree {...stepThreeProps} />}
+      </div>
     </div>
   );
 }
 
-export default calculatorStep;
+export default CalculatorStep;
